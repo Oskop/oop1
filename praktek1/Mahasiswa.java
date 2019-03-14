@@ -12,6 +12,10 @@ public class Mahasiswa {
     this.nama = nama;
   }
 
+  void cetak(){
+    System.out.println(nim + " : " + nama);
+  }
+
   public String getNim(){
     return nim;
   }
