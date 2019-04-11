@@ -1,15 +1,20 @@
 package util;
 
 import java.io.*;
+import javax.sound.sampled.*;
 
 public class MyPlayer {
   private AudioInputStream ais;
   private Clip clip;
+  private String filePath;
 
-  public MyPlayer(String filePath){
-    ais = AudioSystem.getInputStream(new File(filePath).getAbsoluteFile());
+  public MyPlayer(String filePath) throws
+  UnsupportedAudioFileException,
+  LineUnavailableException, IOException{
+    ais = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
     clip = AudioSystem.getClip();
     clip.open(ais);
+    this.filePath = filePath;
   }
 
   public void play(){
@@ -22,9 +27,18 @@ public class MyPlayer {
 
   public void restart(){}
 
-  public void stop(){
+  public void stop() throws UnsupportedAudioFileException,
+  LineUnavailableException, IOException {
     clip.stop();
     clip.close();
+    reset();
+  }
+
+  public void reset() throws
+  UnsupportedAudioFileException, LineUnavailableException, IOException{
+    ais = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+    clip = AudioSystem.getClip();
+    clip.open(ais);
   }
 
 }
