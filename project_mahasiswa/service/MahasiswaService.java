@@ -20,7 +20,7 @@ public class MahasiswaService{
   }
 
   public void deleteData(String nim){
-    int index = data.indexOf(mhs);
+    int index = data.indexOf(mhs.getNim);
     if (index >=0) {
       data.remove(index);
     }

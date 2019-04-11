@@ -14,7 +14,13 @@ public class Aplikasi{
 
     do {
       showMenu();
-      opsi = scanner.nextInt();
+      try {
+        scanner = new Scanner(System.in);
+        opsi = scanner.nextInt();
+      } catch(Exception e) {
+        System.err.println("Inputan bukan angka. coba lagi");
+
+      }
       prosesOpsi(opsi);
     } while (opsi !=5);
   }
@@ -62,6 +68,14 @@ public class Aplikasi{
     System.out.print("Kelas : ");
     kelas = scanner.nextLine();
     service.addData(new Mahasiswa(nim, nama, kelas));
+  }
+
+  private static void showDeleteData(){
+    scanner = new Scanner(System.in);
+    System.out.println("=---  FORM PENGHAPUSAN DATA  ---=");
+    System.out.print("Masukkan NIM");
+    String nim = scanner.nextLine();
+    service.deleteData(nim);
   }
 
   private static void showMenu(){
