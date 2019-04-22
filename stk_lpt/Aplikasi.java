@@ -46,40 +46,48 @@ public class Aplikasi{
 
   private static void showFormEditData(){
     scanner = new Scanner(System.in);
-    String nim, nama, kelas;
+    String id, merk, seri, harga, jumlah;
     System.out.println("\n--= Form Ubah Data =--");
-    System.out.print("NIM   : ");
-    nim = scanner.nextLine();
-    System.out.print("Nama  : ");
-    nama = scanner.nextLine();
-    System.out.print("Kelas : ");
-    kelas = scanner.nextLine();
-    service.updateData(new Mahasiswa(nim,nama,kelas));
+    System.out.print("ID     : ");
+    id = scanner.nextLine();
+    System.out.print("Merk   : ");
+    merk = scanner.nextLine();
+    System.out.print("Seri   : ");
+    seri = scanner.nextLine();
+    System.out.print("Harga  : ");
+    harga = scanner.nextLine();
+    System.out.print("Jumlah : ");
+    jumlah = scanner.nextLine();
+    service.updateData(new Mahasiswa(id,merk,seri,harga,jumlah));
   }
 
   private static void showFormTambahData(){
     scanner = new Scanner(System.in);
-    String nim, nama, kelas;
+    String id, merk, seri, harga, jumlah;
     System.out.println("\n--= Form Entry Data =--");
-    System.out.print("NIM   : ");
-    nim = scanner.nextLine();
-    System.out.print("Nama  : ");
-    nama = scanner.nextLine();
-    System.out.print("Kelas : ");
-    kelas = scanner.nextLine();
-    service.addData(new Mahasiswa(nim, nama, kelas));
+    System.out.print("ID     : ");
+    id = scanner.nextLine();
+    System.out.print("Merk   : ");
+    merk = scanner.nextLine();
+    System.out.print("Seri   : ");
+    seri = scanner.nextLine();
+    System.out.print("Harga  : ");
+    harga = scanner.nextLine();
+    System.out.print("Jumlah : ");
+    jumlah = scanner.nextLine();
+    service.addData(new Mahasiswa(id,merk,seri,harga,jumlah));
   }
 
   private static void showDeleteData(){
     scanner = new Scanner(System.in);
     System.out.println("=---  FORM PENGHAPUSAN DATA  ---=");
     System.out.print("Masukkan NIM");
-    String nim = scanner.nextLine();
-    service.deleteData(nim);
+    String id = scanner.nextLine();
+    service.deleteData(id);
   }
 
   private static void showMenu(){
-    System.out.println("---= Aplikasi Mahasiswa =---");
+    System.out.println("---= Aplikasi Stok Laptop =---");
     System.out.println("1. Tambah Data");
     System.out.println("2. Ubah Data");
     System.out.println("3. Hapus Data");

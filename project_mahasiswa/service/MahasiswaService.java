@@ -20,9 +20,15 @@ public class MahasiswaService{
   }
 
   public void deleteData(String nim){
-    int index = data.indexOf(mhs.getNim);
+    int index = 0;
+    for (Mahasiswa mhs : data) {
+      if (mhs.getNim() == nim) {
+          index = data.indexOf(mhs);
+      }
+    }
     if (index >=0) {
-      data.remove(index);
+      System.out.println(index);
+      data.remove(index+1);
     }
   }
 
