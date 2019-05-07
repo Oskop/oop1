@@ -8,9 +8,10 @@ import javax.swing.table.*;
 import java.sql.*;
 import util.*;
 
-public class MainUI extends JFrame {
+public class MainUI extends JFrame{
 
   public static Koneksi koneksi;
+  public static TambahUI tambahUI;
 
   private JTable table;
   private JButton btnTambah;
@@ -53,6 +54,8 @@ public class MainUI extends JFrame {
   private void initUI(){
     setTitle("Aplikasi Mahasiswa");
 
+    tambahUI = new TambahUI();
+
     contenPane = getContentPane();
 
     columnNames = new Vector();
@@ -78,5 +81,15 @@ public class MainUI extends JFrame {
     pack();
     setVisible(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    btnTambah.addActionListener(new btnTambahClick());
+  }
+
+  // event
+
+  private class btnTambahClick implements ActionListener {
+    public void actionPerformed(ActionEvent evt){
+      tambahUI.setVisible(true);
+    }
   }
 }
