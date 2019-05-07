@@ -26,6 +26,13 @@ public class Koneksi {
     return result;
   }
 
+  public int eksekusiUpdate(String sql) throws SQLException, SQLTimeoutException{
+    openConnection();
+    int result = statement.executeUpdate(sql);
+    closeConnection();
+    return result;
+  }
+
   public void closeConnection() throws SQLException, SQLTimeoutException{
     connection.close();
   }
