@@ -51,10 +51,14 @@ public class MainUI extends JFrame{
     }
   }
 
+  public void refreshTable(){
+    initData();
+  }
+
   private void initUI(){
     setTitle("Aplikasi Mahasiswa");
 
-    tambahUI = new TambahUI();
+    tambahUI = new TambahUI(this);
 
     contenPane = getContentPane();
 
@@ -89,6 +93,7 @@ public class MainUI extends JFrame{
 
   private class btnTambahClick implements ActionListener {
     public void actionPerformed(ActionEvent evt){
+      tambahUI.clearform();
       tambahUI.setVisible(true);
     }
   }

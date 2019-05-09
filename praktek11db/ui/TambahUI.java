@@ -3,6 +3,7 @@ package ui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.sql.*;
 
 public class TambahUI extends JFrame {
 
@@ -17,10 +18,12 @@ public class TambahUI extends JFrame {
   private JTextField txtAlamat;
   private JButton btnSimpan;
   private JButton btnBatal;
+  private MainUI parent;
 
 
-  public TambahUI(){
+  public TambahUI(MainUI parent){
     initUI();
+    this.parent = parent;
   }
 
   private void initUI(){
@@ -49,5 +52,41 @@ public class TambahUI extends JFrame {
     contenPane.add(panelButton, BorderLayout.SOUTH);
 
     pack();
+
+    btnSimpan.addActionListener(new BtnSimpanClick());
+    btnBatal.addActionListener(new BtnBatalClick());
+  }
+
+  public void clearform(){
+    txtId.setText("");
+    txtNama.setText("");
+    txtAlamat.setText("");
+  }
+
+  // event
+
+  private class BtnSimpanClick implements ActionListener {
+    public void actionPerformed(ActionEvent evt){
+      String id = txtId.getText();
+      String nama = txtNama.getText();
+      String alamat = txtAlamat.getText();
+      String query = "insert into profile(id, nama, alamat) "+
+                      "values ('"+id+"', '"+nama+"', '"+alamat+"')";
+      try {
+        MainUI.koneksi.eksekusiUpdate(query);
+        JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+        setVisible(false);
+        parent.refreshTable();
+      } catch(SQLException e) {
+        JOptionPane.showMessageDialog(null, "Gagal Menyimpan data");
+        e.printStackTrace();
+      }
+    }
+  }
+
+  private class BtnBatalClick implements ActionListener {
+    public void actionPerformed(ActionEvent evt){
+      setVisible(false);
+    }
   }
 }
