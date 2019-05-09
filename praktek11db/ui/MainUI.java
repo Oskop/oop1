@@ -12,6 +12,7 @@ public class MainUI extends JFrame{
 
   public static Koneksi koneksi;
   public static TambahUI tambahUI;
+  public static UbahUI ubahUI;
 
   private JTable table;
   private JButton btnTambah;
@@ -59,6 +60,7 @@ public class MainUI extends JFrame{
     setTitle("Aplikasi Mahasiswa");
 
     tambahUI = new TambahUI(this);
+    ubahUI = new UbahUI(this);
 
     contenPane = getContentPane();
 
@@ -69,6 +71,7 @@ public class MainUI extends JFrame{
     data = new Vector();
     tableModel = new DefaultTableModel(null, columnNames);
     table = new JTable(tableModel);
+    table.setSelectionModel(new MySingleSelectionModel());
     scrollPane = new JScrollPane(table);
     contenPane.add(scrollPane, BorderLayout.CENTER);
 
@@ -87,6 +90,8 @@ public class MainUI extends JFrame{
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     btnTambah.addActionListener(new btnTambahClick());
+    btnUbah.addActionListener(new btnUbahClick());
+    btnHapus.addActionListener(new btnHapusClick());
   }
 
   // event
@@ -95,6 +100,37 @@ public class MainUI extends JFrame{
     public void actionPerformed(ActionEvent evt){
       tambahUI.clearform();
       tambahUI.setVisible(true);
+    }
+  }
+
+  private class btnUbahClick implements ActionListener {
+    public void actionPerformed(ActionEvent evt){
+      if (table.getSelectedRow()!=-1) {
+        ubahUI.tampilkan(
+          ""+table.getValueAt(table.getSelectedRow(),0),
+          table.getValueAt(table.getSelectedRow(),1).toString(),
+          (String) table.getValueAt(table.getSelectedRow(),2));
+      }else {
+        JOptionPane.showMessageDialog(null,
+                      "Pilih data yang akan diubah");
+      }
+    }
+  }
+
+  private class btnHapusClick implements ActionListener {
+    public void actionPerformed(ActionEvent evt){
+      if (table.getSelectedRow()!=-1) {
+        String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+        String query = "delete from profile "+
+                        "where id=" + id;
+        try {
+          koneksi.eksekusiUpdate(query);
+          JOptionPane.showMessageDialog(null, "Data dengan id = "+ id +" telah dihapus.");
+          refreshTable();
+        } catch(SQLException e) {
+          JOptionPane.showMessageDialog(null, "Gagal menghapus data.");
+        }
+      }
     }
   }
 }
